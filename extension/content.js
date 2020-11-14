@@ -1,11 +1,5 @@
 const name = 'a-very-nice-clock'
-
-const port = chrome.runtime.connect(undefined, { name })
-let echo = null
-port.onMessage.addListener((tabId, port) => {
-  if (typeof tabId !== 'number') return
-  echo = (message, frameId = 0) => port.postMessage({ tabId, frameId, message })
-})
+const echo = (message) => chrome.runtime.sendMessage(undefined, message)
 
 const getClockElement = () => {
   let element = document.getElementById(name)
@@ -42,11 +36,6 @@ chrome.runtime.onMessage.addListener((message) => {
 })
 
 const interval = setInterval(
-  () => echo?.(new Date().toLocaleTimeString('en-GB')),
+  () => echo(new Date().toLocaleTimeString('en-GB')),
   1000,
 )
-
-port.onDisconnect.addListener(() => {
-  clearInterval(interval)
-  setTimeout(() => location.reload(), 500)
-})
