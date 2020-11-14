@@ -4,7 +4,7 @@ const port = chrome.runtime.connect(undefined, { name })
 let echo = null
 port.onMessage.addListener((tabId, port) => {
   if (typeof tabId !== 'number') return
-  echo = (message, frameId) => port.postMessage({ tabId, frameId, message })
+  echo = (message, frameId = 0) => port.postMessage({ tabId, frameId, message })
 })
 
 const getClockElement = () => {
