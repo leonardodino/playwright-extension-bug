@@ -11,4 +11,4 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Run tests
-        run: xfvb-run --auto-servernum -- yarn test
+        run: xvfb-run --auto-servernum -- yarn test
