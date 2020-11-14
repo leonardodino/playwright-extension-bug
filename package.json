@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "node test"
+    "test": "node ."
   },
   "dependencies": {
     "playwright": "1.6.1"
