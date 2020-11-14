@@ -1,0 +1,14 @@
+name: Test
+on: [push]
+jobs:
+  e2e:
+    name: Playwright
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - uses: microsoft/playwright-github-action@v1
+      - name: Install dependencies
+        run: yarn install
+      - name: Run tests
+        run: xfvb-run --auto-servernum -- yarn test
