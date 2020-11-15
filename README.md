@@ -1,4 +1,4 @@
-# playwright repro for #
+# [playwright](https://github.com/microsoft/playwright) repro for [#4441](https://github.com/microsoft/playwright/issues/4441)
 
 this repo contains a simple test extension in `/extension`.
 
@@ -12,10 +12,10 @@ chrome.tabs.sendMessage(tabId, message, { frameId })
 ```
 
 results in:
+
 ```diff
 - "Could not establish connection. Receiving end does not exist."
 ```
-
 
 The issue only affects `chromium.launch`, and not `chromium.launchPersistentContext`.
 
@@ -27,6 +27,7 @@ I added a minimal test, on `test.js`.
 
 `index.js` will check the output of `test.js` against known values.
 running it will yield:
+
 ```
 ==== persistent ====
 DOM insertion: true
@@ -39,6 +40,7 @@ clock updated: false
 ```
 
 **exit codes**
+
 ```
 0 => reproduced
 2 => fixed
@@ -48,13 +50,14 @@ clock updated: false
 ## branches
 
 there are 2 branches:
-- `main`: uses `chrome.runtime.connect`
-- `runtime-send-message`: uses `chrome.runtime.sendMessage`
 
+- [`main`](https://github.com/leonardodino/playwright-extension-bug/tree/main/extension): uses [`chrome.runtime.connect`](https://developer.chrome.com/extensions/runtime#method-connect)
+- [`runtime-send-message`](https://github.com/leonardodino/playwright-extension-bug/tree/runtime-send-message/extension): uses [`chrome.runtime.sendMessage`](https://developer.chrome.com/extensions/runtime#method-sendMessage)
+
+outside of this diff, the rest is equal.
 both of them reproduce the error equally.
-I guess they share the same implementation somewhere down the line.
 
-The code on `runtime-send-message` is slightly shorter.
+I suppose they share the same implementation down the line. 🧐
 
 ## license
 
